@@ -7,5 +7,5 @@ class Usuario:
         self.preferencia_comida = list() #Lista de comidas
 
 
-    def añadir_preferencia_comida(self):
-        pass
+    def agregar_preferencia_comida(self, comida):
+        if comida not in self.preferencia_comida : self.preferencia_comida.append(comida)
