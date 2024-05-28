@@ -6,7 +6,7 @@ class Producto:
         self.ingredientes = list() #Lista de ingredientes que conforman el producto
 
     def eliminar_ingrediente_de_prodcuro(self, indice_ingrediente):
-        self.ingredientes.pop(indice_ingrediente)
+        if indice_ingrediente < len(self.ingredientes): self.ingredientes.pop(indice_ingrediente)
 
     def agregar_ingrediente_a_producto(self, ingrediente, cantidad):
         self.ingredientes.append([ingrediente, cantidad])
