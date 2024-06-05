@@ -8,4 +8,4 @@ class Usuario:
 
 
     def agregar_preferencia_comida(self, comida):
-        if comida not in self.preferencia_comida : self.preferencia_comida.append(comida)
+        if comida not in self.preferencia_comida: self.preferencia_comida.append(comida)
