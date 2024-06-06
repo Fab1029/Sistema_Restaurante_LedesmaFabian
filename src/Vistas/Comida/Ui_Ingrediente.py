@@ -136,6 +136,7 @@ class Ui_Ingrediente(object):
         self.jgdIngredientes.setObjectName("jgdIngredientes")
         self.jgdIngredientes.setColumnCount(0)
         self.jgdIngredientes.setRowCount(0)
+
         self.gridLayout_5.addWidget(self.jgdIngredientes, 0, 0, 1, 1)
         self.tbIngrediente.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbIngrediente, 0, 0, 1, 1)
