@@ -27,12 +27,19 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         self.resturante.ingredientes.pop(self.cmbNombreEliminar.currentText())
         self.__init__seccion(2)()
         self.verificar_pestana()
+        self.dialogo_informacion('Exito', 'Ingrediente eliminado exitosamente')
     def ingresar_ingrediente_action(self):
-        self.resturante.ingredientes.update({self.txtNombreIngresar.text(): Ingrediente(self.txtNombreIngresar.text(), self.cmbTipoIngresar.currentText(), self.cmbMedidaIngresar.currentText())}) if self.txtNombreIngresar.text() else print('Ingrese nombre')
-        self.__init__seccion(0)()
-        self.verificar_pestana()
+        if self.txtNombreIngresar.text():
+            self.resturante.ingredientes.update({self.txtNombreIngresar.text(): Ingrediente(self.txtNombreIngresar.text(), self.cmbTipoIngresar.currentText(), self.cmbMedidaIngresar.currentText())})
+            self.__init__seccion(0)()
+            self.verificar_pestana()
+            self.dialogo_informacion('Exito', 'Ingreso de ingrediente exitoso')
+        else:
+            self.dialogo_informacion('Alerta', 'Ingrese el nombre del ingrediente')
     def modificar_ingrediente_action(self):
         self.resturante.ingredientes.update({self.cmbNombreModificar.currentText(): Ingrediente(self.cmbNombreModificar.currentText(), self.cmbTipoModificar.currentText(), self.cmbMedidaModificar.currentText())})
+        self.dialogo_informacion('Exito', 'Ingrediente modificado exitosamente')
+
     def listar_ingredientes_action(self):
         #Arreglar problemas en anadir valores a tabla
         pass
@@ -76,6 +83,9 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         secciones = {0: ingresar, 1: modificar, 2: eliminar, 3: listar}
 
         return secciones[seccion]
+
+    def dialogo_informacion(self, titulo, cadena):
+        QtWidgets.QMessageBox.information(self,titulo, cadena)
 
     def desconectar_conexion(self):
         try:

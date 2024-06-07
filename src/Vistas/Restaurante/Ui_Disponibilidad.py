@@ -9,7 +9,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Ui_Disponibilidad(object):
+class Ui_Disponibilidad(object):
     def setupUi(self, Ui_Disponibilidad):
         Ui_Disponibilidad.setObjectName("Ui_Disponibilidad")
         Ui_Disponibilidad.resize(1090, 741)
@@ -81,21 +81,18 @@ class Ui_Ui_Disponibilidad(object):
         self.tbIngresar.setObjectName("tbIngresar")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.tbIngresar)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.cmbTurnoIngresar = QtWidgets.QComboBox(parent=self.tbIngresar)
-        self.cmbTurnoIngresar.setObjectName("cmbTurnoIngresar")
-        self.gridLayout_2.addWidget(self.cmbTurnoIngresar, 4, 0, 1, 1)
-        self.lblFechaIngresar = QtWidgets.QLabel(parent=self.tbIngresar)
-        self.lblFechaIngresar.setObjectName("lblFechaIngresar")
-        self.gridLayout_2.addWidget(self.lblFechaIngresar, 5, 0, 1, 1)
         self.lblTurnoIngresar = QtWidgets.QLabel(parent=self.tbIngresar)
         self.lblTurnoIngresar.setObjectName("lblTurnoIngresar")
-        self.gridLayout_2.addWidget(self.lblTurnoIngresar, 3, 0, 1, 1)
-        self.btnIngresarDisponibilidad = QtWidgets.QPushButton(parent=self.tbIngresar)
-        self.btnIngresarDisponibilidad.setObjectName("btnIngresarDisponibilidad")
-        self.gridLayout_2.addWidget(self.btnIngresarDisponibilidad, 7, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.lblTurnoIngresar, 2, 0, 1, 1)
+        self.lblNumeroPlazasIngresar = QtWidgets.QLabel(parent=self.tbIngresar)
+        self.lblNumeroPlazasIngresar.setObjectName("lblNumeroPlazasIngresar")
+        self.gridLayout_2.addWidget(self.lblNumeroPlazasIngresar, 4, 0, 1, 1)
         self.sbNumeroPlazas = QtWidgets.QSpinBox(parent=self.tbIngresar)
         self.sbNumeroPlazas.setObjectName("sbNumeroPlazas")
-        self.gridLayout_2.addWidget(self.sbNumeroPlazas, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.sbNumeroPlazas, 6, 0, 1, 1)
+        self.btnIngresarDisponibilidad = QtWidgets.QPushButton(parent=self.tbIngresar)
+        self.btnIngresarDisponibilidad.setObjectName("btnIngresarDisponibilidad")
+        self.gridLayout_2.addWidget(self.btnIngresarDisponibilidad, 11, 0, 1, 1)
         self.dtpFechaIngresar = QtWidgets.QCalendarWidget(parent=self.tbIngresar)
         self.dtpFechaIngresar.setStyleSheet("QCalendarWidget QToolButton {\n"
 "    color: black;\n"
@@ -118,10 +115,13 @@ class Ui_Ui_Disponibilidad(object):
 "    background-color: #e6e6e6; /* Color de fondo de la selección */\n"
 "}")
         self.dtpFechaIngresar.setObjectName("dtpFechaIngresar")
-        self.gridLayout_2.addWidget(self.dtpFechaIngresar, 6, 0, 1, 1)
-        self.lblNumeroPlazasIngresar = QtWidgets.QLabel(parent=self.tbIngresar)
-        self.lblNumeroPlazasIngresar.setObjectName("lblNumeroPlazasIngresar")
-        self.gridLayout_2.addWidget(self.lblNumeroPlazasIngresar, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.dtpFechaIngresar, 1, 0, 1, 1)
+        self.lblFechaIngresar = QtWidgets.QLabel(parent=self.tbIngresar)
+        self.lblFechaIngresar.setObjectName("lblFechaIngresar")
+        self.gridLayout_2.addWidget(self.lblFechaIngresar, 0, 0, 1, 1)
+        self.cmbTurnoIngresar = QtWidgets.QComboBox(parent=self.tbIngresar)
+        self.cmbTurnoIngresar.setObjectName("cmbTurnoIngresar")
+        self.gridLayout_2.addWidget(self.cmbTurnoIngresar, 3, 0, 1, 1)
         self.tbDisponibilidad.addTab(self.tbIngresar, "")
         self.tbModificar = QtWidgets.QWidget()
         self.tbModificar.setObjectName("tbModificar")
@@ -184,7 +184,8 @@ class Ui_Ui_Disponibilidad(object):
         self.cmbTurnoEliminar.setObjectName("cmbTurnoEliminar")
         self.gridLayout_4.addWidget(self.cmbTurnoEliminar, 3, 0, 1, 1)
         self.txtNumeroPlazasEliminar = QtWidgets.QLineEdit(parent=self.tbEliminar)
-        self.txtNumeroPlazasEliminar.setEnabled(False)
+        self.txtNumeroPlazasEliminar.setEnabled(True)
+        self.txtNumeroPlazasEliminar.setReadOnly(True)
         self.txtNumeroPlazasEliminar.setObjectName("txtNumeroPlazasEliminar")
         self.gridLayout_4.addWidget(self.txtNumeroPlazasEliminar, 5, 0, 1, 1)
         self.dtpFechaEliminar = QtWidgets.QCalendarWidget(parent=self.tbEliminar)
@@ -230,16 +231,16 @@ class Ui_Ui_Disponibilidad(object):
         self.gridLayout.addWidget(self.tbDisponibilidad, 0, 0, 1, 1)
 
         self.retranslateUi(Ui_Disponibilidad)
-        self.tbDisponibilidad.setCurrentIndex(0)
+        self.tbDisponibilidad.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Ui_Disponibilidad)
 
     def retranslateUi(self, Ui_Disponibilidad):
         _translate = QtCore.QCoreApplication.translate
         Ui_Disponibilidad.setWindowTitle(_translate("Ui_Disponibilidad", "Disponibilidad"))
-        self.lblFechaIngresar.setText(_translate("Ui_Disponibilidad", "Seleccione fecha"))
         self.lblTurnoIngresar.setText(_translate("Ui_Disponibilidad", "Seleccione turno"))
-        self.btnIngresarDisponibilidad.setText(_translate("Ui_Disponibilidad", "Ingresar disponibilidad"))
         self.lblNumeroPlazasIngresar.setText(_translate("Ui_Disponibilidad", "Número de plazas"))
+        self.btnIngresarDisponibilidad.setText(_translate("Ui_Disponibilidad", "Ingresar disponibilidad"))
+        self.lblFechaIngresar.setText(_translate("Ui_Disponibilidad", "Seleccione fecha"))
         self.tbDisponibilidad.setTabText(self.tbDisponibilidad.indexOf(self.tbIngresar), _translate("Ui_Disponibilidad", "Ingresar"))
         self.lblTurnoModificar.setText(_translate("Ui_Disponibilidad", "Seleccione turno"))
         self.lblFechaModificar.setText(_translate("Ui_Disponibilidad", "Seleccione fecha"))

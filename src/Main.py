@@ -8,3 +8,5 @@ if __name__ == '__main__':
     aplicacion_restaurante = ControladorMain()
     aplicacion_restaurante.show()
     aplicacion.exec()
+
+

@@ -4,5 +4,3 @@ class Ingrediente:
         self.nombre = nombre
         self.medida = medida
 
-    def __str__(self):
-        return f'{self.nombre} es de tipo {self.tipo} y usa la medida {self.medida}'

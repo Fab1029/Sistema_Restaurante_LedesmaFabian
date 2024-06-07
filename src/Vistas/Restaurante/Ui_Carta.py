@@ -9,7 +9,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Ui_Carta(object):
+class Ui_Carta(object):
     def setupUi(self, Ui_Carta):
         Ui_Carta.setObjectName("Ui_Carta")
         Ui_Carta.resize(1092, 835)
