@@ -1,12 +1,13 @@
 import sys
-
 from PyQt6 import QtWidgets
-from src.Controladores.Restaurante.ControladorMain import ControladorMain
+from src.Controladores.Usuario.ControladorInicioSesion import ControladorInicioSesion
+from src.Controladores.Restaurante.ControladorRestaurante import ControladorRestaurante
 
 if __name__ == '__main__':
-    aplicacion = QtWidgets.QApplication(sys.argv)
-    aplicacion_restaurante = ControladorMain()
-    aplicacion_restaurante.show()
-    aplicacion.exec()
+    app = QtWidgets.QApplication(sys.argv)
+    ControladorInicioSesion(ControladorRestaurante()).show()
+    sys.exit(app.exec())
+
+
 
 

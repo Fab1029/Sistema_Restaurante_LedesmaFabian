@@ -1,5 +1,7 @@
 import pickle
 from src.Datos.RutaArchivos import RutaArchivos
+from src.Modelos.Usuario.Encargado import Encargado
+
 class Restaurante:
     __instance = None
     @staticmethod
@@ -21,11 +23,13 @@ class Restaurante:
         self.cartas = dict()
         self.reservas = dict()
         self.productos = dict()
+        self.encargados = dict()
         self.ingredientes = dict()
         self.dias_disponibilidad = dict()
 
         self.cargar_restaurante()
 
+    '''''   
     def agregar_carta_a_restaurante(self, carta):
         if carta.fecha_validez not in self.cartas:
             self.cartas[carta.fecha_validez] = {}
@@ -54,6 +58,7 @@ class Restaurante:
 
     def verificar_disponibilidad(self, fecha, hora):
         pass
+    '''
 
     def cargar_restaurante(self):
         [self.cargar_datos_restaurante(1)(path[0], atributo, path[1]) for path, atributo in zip(RutaArchivos().rutas, [self.cartas, self.reservas, self.productos, self.ingredientes, self.dias_disponibilidad])]
