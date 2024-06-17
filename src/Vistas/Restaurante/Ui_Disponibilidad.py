@@ -12,7 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Disponibilidad(object):
     def setupUi(self, Ui_Disponibilidad):
         Ui_Disponibilidad.setObjectName("Ui_Disponibilidad")
-        Ui_Disponibilidad.resize(1090, 741)
+        Ui_Disponibilidad.resize(1366, 768)
+        Ui_Disponibilidad.setMinimumSize(QtCore.QSize(800, 600))
+        Ui_Disponibilidad.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Disponibilidad.setStyleSheet("QWidget{\n"
 "background-color:white;\n"
 "}\n"
@@ -226,12 +228,16 @@ class Ui_Disponibilidad(object):
         self.jgdDisponibilidad.setObjectName("jgdDisponibilidad")
         self.jgdDisponibilidad.setColumnCount(0)
         self.jgdDisponibilidad.setRowCount(0)
+        self.jgdDisponibilidad.horizontalHeader().setCascadingSectionResizes(True)
+        self.jgdDisponibilidad.horizontalHeader().setDefaultSectionSize(420)
+        self.jgdDisponibilidad.horizontalHeader().setMinimumSectionSize(100)
+        self.jgdDisponibilidad.verticalHeader().setCascadingSectionResizes(True)
         self.gridLayout_5.addWidget(self.jgdDisponibilidad, 0, 0, 1, 1)
         self.tbDisponibilidad.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbDisponibilidad, 0, 0, 1, 1)
 
         self.retranslateUi(Ui_Disponibilidad)
-        self.tbDisponibilidad.setCurrentIndex(2)
+        self.tbDisponibilidad.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Disponibilidad)
 
     def retranslateUi(self, Ui_Disponibilidad):

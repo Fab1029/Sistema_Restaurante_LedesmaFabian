@@ -1,9 +1,12 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QTableWidgetItem
 from src.Modelos.Comida.Ingrediente import Ingrediente
 from src.Vistas.Comida.Ui_Ingrediente import Ui_Ingrediente
 from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Modelos.Comida.TiposIngredientes import TiposIngredientes
 from src.Modelos.Comida.MedidaIngrediente import MedidaIngrediente
+
+
 class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
     def __init__(self, controlador_anterior, seccion, parent= None):
         super(ControladorIngrediente, self).__init__(parent)
@@ -14,24 +17,24 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         #Se manda el metodo para hacer visible el controlador anterior
         self.controlador_anterior = controlador_anterior
 
-        self.__init__actions()
-        self.__init__seccion(seccion)()
+        self.init_seccion(seccion)()
+        self.init_actions()
 
-    def __init__actions(self):
+    def init_actions(self):
         self.btnElimarIngrediente.clicked.connect(self.eliminar_ingrediente_action)
         self.btnGuardarCambios.clicked.connect(self.modificar_ingrediente_action)
         self.btnIngresarIngrediente.clicked.connect(self.ingresar_ingrediente_action)
-        self.tbIngrediente.currentChanged.connect(lambda: self.__init__seccion(self.tbIngrediente.currentIndex())())
+        self.tbIngrediente.currentChanged.connect(lambda: self.init_seccion(self.tbIngrediente.currentIndex())())
 
     def eliminar_ingrediente_action(self):
         self.resturante.ingredientes.pop(self.cmbNombreEliminar.currentText())
-        self.__init__seccion(2)()
+        self.init_seccion(2)()
         self.verificar_pestana()
         self.dialogo_informacion('Exito', 'Ingrediente eliminado exitosamente')
     def ingresar_ingrediente_action(self):
         if self.txtNombreIngresar.text():
             self.resturante.ingredientes.update({self.txtNombreIngresar.text(): Ingrediente(self.txtNombreIngresar.text(), self.cmbTipoIngresar.currentText(), self.cmbMedidaIngresar.currentText())})
-            self.__init__seccion(0)()
+            self.init_seccion(0)()
             self.verificar_pestana()
             self.dialogo_informacion('Exito', 'Ingreso de ingrediente exitoso')
         else:
@@ -41,13 +44,20 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         self.dialogo_informacion('Exito', 'Ingrediente modificado exitosamente')
 
     def listar_ingredientes_action(self):
-        #Arreglar problemas en anadir valores a tabla
-        pass
+        self.jgdIngredientes.clear()
+        self.jgdIngredientes.setColumnCount(3)
+        self.jgdIngredientes.setRowCount(len(self.resturante.ingredientes.keys()))
+        self.jgdIngredientes.setHorizontalHeaderLabels(['Nombre', 'Tipo', 'Medida'])
+        for numero_ingrediente, ingrediente in enumerate(self.resturante.ingredientes.values()):
+            self.jgdIngredientes.setItem(numero_ingrediente, 0, QTableWidgetItem(ingrediente.nombre))
+            self.jgdIngredientes.setItem(numero_ingrediente, 1, QTableWidgetItem(ingrediente.tipo))
+            self.jgdIngredientes.setItem(numero_ingrediente, 2, QTableWidgetItem(ingrediente.medida))
+
     def nombre_modificar_action(self):
         self.cmbTipoModificar.setCurrentIndex(self.cmbTipoModificar.findText(self.resturante.ingredientes[self.cmbNombreModificar.currentText()].tipo))
         self.cmbMedidaModificar.setCurrentIndex(self.cmbMedidaModificar.findText(self.resturante.ingredientes[self.cmbNombreModificar.currentText()].medida))
 
-    def __init__seccion(self, seccion):
+    def init_seccion(self, seccion):
         self.desconectar_conexion()
         def ingresar():
             self.tbIngrediente.setCurrentIndex(0)
@@ -76,7 +86,6 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
 
         def listar():
             self.tbIngrediente.setCurrentIndex(3)
-            self.jgdIngredientes.clear()
             self.listar_ingredientes_action()
 
 

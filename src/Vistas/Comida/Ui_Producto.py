@@ -12,7 +12,8 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Producto(object):
     def setupUi(self, Ui_Producto):
         Ui_Producto.setObjectName("Ui_Producto")
-        Ui_Producto.resize(1047, 616)
+        Ui_Producto.resize(1366, 768)
+        Ui_Producto.setMinimumSize(QtCore.QSize(800, 600))
         Ui_Producto.setStyleSheet("QWidget{\n"
 "background-color:white;\n"
 "}\n"
@@ -191,12 +192,16 @@ class Ui_Producto(object):
         self.jgdProductos.setObjectName("jgdProductos")
         self.jgdProductos.setColumnCount(0)
         self.jgdProductos.setRowCount(0)
+        self.jgdProductos.horizontalHeader().setCascadingSectionResizes(True)
+        self.jgdProductos.horizontalHeader().setDefaultSectionSize(420)
+        self.jgdProductos.horizontalHeader().setMinimumSectionSize(100)
+        self.jgdProductos.verticalHeader().setCascadingSectionResizes(True)
         self.gridLayout_5.addWidget(self.jgdProductos, 0, 0, 1, 1)
         self.tbProducto.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbProducto, 0, 0, 1, 1)
 
         self.retranslateUi(Ui_Producto)
-        self.tbProducto.setCurrentIndex(0)
+        self.tbProducto.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Producto)
 
     def retranslateUi(self, Ui_Producto):

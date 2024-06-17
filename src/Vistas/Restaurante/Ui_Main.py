@@ -12,7 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Main(object):
     def setupUi(self, Ui_Main):
         Ui_Main.setObjectName("Ui_Main")
-        Ui_Main.resize(3373, 1838)
+        Ui_Main.resize(1366, 768)
+        Ui_Main.setMinimumSize(QtCore.QSize(800, 600))
+        Ui_Main.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Main.setStyleSheet("QMainWindow{\n"
 "    background-color: white;\n"
 "}\n"
@@ -102,15 +104,15 @@ class Ui_Main(object):
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 0, 0, 1, 1)
         self.lblLogoRestaurante = QtWidgets.QLabel(parent=self.centralwidget)
+        self.lblLogoRestaurante.setMaximumSize(QtCore.QSize(600, 600))
         self.lblLogoRestaurante.setText("")
-        self.lblLogoRestaurante.setPixmap(QtGui.QPixmap("./Vistas/logoRestaurante.jpg"))
+        self.lblLogoRestaurante.setPixmap(QtGui.QPixmap("logoRestaurante.jpg"))
         self.lblLogoRestaurante.setScaledContents(True)
-        self.lblLogoRestaurante.setObjectName("label_7")
-        self.lblLogoRestaurante.setMaximumSize(600, 600)
+        self.lblLogoRestaurante.setObjectName("lblLogoRestaurante")
         self.gridLayout.addWidget(self.lblLogoRestaurante, 0, 1, 1, 1)
         Ui_Main.setCentralWidget(self.centralwidget)
         self.jmbMenu = QtWidgets.QMenuBar(parent=Ui_Main)
-        self.jmbMenu.setGeometry(QtCore.QRect(0, 0, 3373, 41))
+        self.jmbMenu.setGeometry(QtCore.QRect(0, 0, 1407, 41))
         self.jmbMenu.setObjectName("jmbMenu")
         self.menuMenu = QtWidgets.QMenu(parent=self.jmbMenu)
         self.menuMenu.setObjectName("menuMenu")

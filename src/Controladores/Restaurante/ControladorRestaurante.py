@@ -4,6 +4,7 @@ from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Modelos.Usuario.GestionUsuarios import GestionUsuarios
 from src.Controladores.Restaurante.ControladorCarta import ControladorCarta
 from src.Controladores.Comida.ControladorProducto import ControladorProducto
+from src.Controladores.Restaurante.ControladorReserva import ControladorReserva
 from src.Controladores.Comida.ControladorIngrediente import ControladorIngrediente
 from src.Controladores.Usuario.ControladorGestionEncargado import ControladorGestionEncargado
 from src.Controladores.Restaurante.ControladorDiaDisponibilidad import ControladorDiaDisponibilidad
@@ -15,16 +16,43 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         self.setupUi(self)
 
         self.init_actions()
-        self.restaurante = Restaurante.getInstance().cargar_restaurante()
+        self.restaurante = Restaurante.getInstance()
 
 
     def init_actions(self):
         self.jmbSalir.triggered.connect(self.salir)
         self.jmbCartaIngresar.triggered.connect(lambda: self.init_controlador('controlador_carta')(0))
+        self.jmbReservaIngresar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(0))
         self.jmbProductoIngresar.triggered.connect(lambda: self.init_controlador('controlador_producto')(0))
         self.jmbIngredienteIngresar.triggered.connect(lambda: self.init_controlador('controlador_ingrediente')(0))
         self.jmbPersonalIngresar.triggered.connect(lambda: self.init_controlador('controlador_gestion_encargado')(0))
         self.jmbDisponibilidadIngresar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(0))
+
+        self.jmbCartaModificar.triggered.connect(lambda: self.init_controlador('controlador_carta')(1) if self.restaurante.cartas else self.dialogo_informacion('Informacion', 'Cartas aun no ingresadas al sistema'))
+        self.jmbReservaModificar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(1) if self.restaurante.reservas else self.dialogo_informacion('Informacion', 'Reservas aun no ingresadas al sistema'))
+        self.jmbProductoModificar.triggered.connect(lambda: self.init_controlador('controlador_producto')(1) if self.restaurante.productos else self.dialogo_informacion('Informacion', 'Productos, aun no ingresados al sistema'))
+        self.jmbIngredienteModificar.triggered.connect(lambda: self.init_controlador('controlador_ingrediente')(1) if self.restaurante.ingredientes else self.dialogo_informacion('Informacion', 'Ingredientes aun no ingresados al sistema'))
+        self.jmbPersonalModificar.triggered.connect(lambda: self.init_controlador('controlador_gestion_encargado')(1))
+        self.jmbDisponibilidadModificar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(1) if self.restaurante.dias_disponibilidad else self.dialogo_informacion('Informacion', 'Disponibilidad aun no ingresada al sistema'))
+
+
+        self.jmbCartaEliminar.triggered.connect(lambda: self.init_controlador('controlador_carta')(2) if self.restaurante.cartas else self.dialogo_informacion('Informacion', 'Cartas aun no ingresadas al sistema'))
+        self.jmbReservaEliminar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(2) if self.restaurante.reservas else self.dialogo_informacion('Informacion', 'Reservas aun no ingresadas al sistema'))
+        self.jmbProductoEliminar.triggered.connect(lambda: self.init_controlador('controlador_producto')(2) if self.restaurante.productos else self.dialogo_informacion('Informacion', 'Productos, aun no ingresados al sistema'))
+        self.jmbIngredienteEliminar.triggered.connect(lambda: self.init_controlador('controlador_ingrediente')(2) if self.restaurante.ingredientes else self.dialogo_informacion('Informacion', 'Ingredientes aun no ingresados al sistema'))
+        self.jmbPersonalEliminar.triggered.connect(lambda: self.init_controlador('controlador_gestion_encargado')(2))
+        self.jmbDisponibilidadEliminar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(2) if self.restaurante.dias_disponibilidad else self.dialogo_informacion('Informacion', 'Disponibilidad aun no ingresada al sistema'))
+
+
+        self.jmbCartaListar.triggered.connect(lambda: self.init_controlador('controlador_carta')(3) if self.restaurante.cartas else self.dialogo_informacion('Informacion', 'Cartas aun no ingresadas al sistema'))
+        self.jmbReservaListar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(3) if self.restaurante.reservas else self.dialogo_informacion('Informacion', 'Reservas aun no ingresadas al sistema'))
+        self.jmbProductoListar.triggered.connect(lambda: self.init_controlador('controlador_producto')(3) if self.restaurante.productos else self.dialogo_informacion('Informacion', 'Productos, aun no ingresados al sistema'))
+        self.jmbIngredienteListar.triggered.connect(lambda: self.init_controlador('controlador_ingrediente')(3) if self.restaurante.ingredientes else self.dialogo_informacion('Informacion', 'Ingredientes aun no ingresados al sistema'))
+        self.jmbPersonalListar.triggered.connect(lambda: self.init_controlador('controlador_gestion_encargado')(3))
+        self.jmbDisponibilidadListar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(3) if self.restaurante.dias_disponibilidad else self.dialogo_informacion('Informacion', 'Disponibilidad aun no ingresada al sistema'))
+
+        self.jtbReservaIngresar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(0))
+        self.jtbDisponibilidadIngresar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(0))
 
     def init_controlador(self, tipo_controlador):
         self.hide()
@@ -43,13 +71,20 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         def encargado(seccion):
             self.ventana = ControladorGestionEncargado(self.show, seccion)
             self.ventana.show()
+        def reserva(seccion):
+            self.ventana = ControladorReserva(self.show, seccion)
+            self.ventana.show()
+
 
 
         controladores = {'controlador_ingrediente': ingrediente, 'controlador_producto': producto,
                          'controlador_carta': carta, 'controlador_dia_disponibilidad': dia_disponibilidad,
-                         'controlador_gestion_encargado': encargado}
+                         'controlador_gestion_encargado': encargado, 'controlador_reserva': reserva}
 
         return controladores[tipo_controlador]
+
+    def dialogo_informacion(self, titulo, cadena):
+        QtWidgets.QMessageBox.information(self,titulo, cadena)
 
     def salir(self):
         GestionUsuarios.getInstance().guardar()

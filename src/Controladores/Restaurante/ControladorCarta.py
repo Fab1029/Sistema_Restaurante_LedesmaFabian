@@ -13,11 +13,10 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
         self.controlador_anterior = controlador_anterior
 
         self.verificar_pestana()
-        self.__init__action()
-        self.__init__seccion(seccion)()
+        self.init_seccion(seccion)()
+        self.init_action()
 
-
-    def __init__action(self):
+    def init_action(self):
         self.btnIngresarCarta.clicked.connect(self.ingresar_carta_action)
         self.btnAgregarProductoIngresar.clicked.connect(lambda: self.agregar_producto_action(1)())
         self.btnEliminarProductoIngresar.clicked.connect(lambda: self.eliminar_producto_action(1)())
@@ -27,7 +26,7 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
         self.btnEliminarProductoModificar.clicked.connect(lambda: self.eliminar_producto_action(2)())
 
         self.btnEliminarCarta.clicked.connect(self.eliminar_carta_action)
-        self.tbCarta.currentChanged.connect(lambda: self.__init__seccion(self.tbCarta.currentIndex())())
+        self.tbCarta.currentChanged.connect(lambda: self.init_seccion(self.tbCarta.currentIndex())())
 
 
     def eliminar_producto_action(self, accion):
@@ -71,14 +70,14 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
     def eliminar_carta_action(self):
         self.restaurante.cartas.pop(self.cmbNombre.currentText(), None)
         self.dialogo_informacion('Exito', 'Se ha eliminado la carta')
-        self.__init__seccion(2)()
+        self.init_seccion(2)()
         self.verificar_pestana()
 
     def ingresar_carta_action(self):
 
         if self.dtpFechaValidezIngresar.selectedDate() >= QDate.currentDate() and self.txtNombreIngresar.text() and self.productos:
-            self.restaurante.cartas.update({self.txtNombreIngresar.text(): Carta(self.txtNombreIngresar.text(), self.dtpFechaValidezIngresar.selectedDate().toString('yyy-MM-dd'), set(self.productos))})
-            self.__init__seccion(0)()
+            self.restaurante.cartas.update({self.txtNombreIngresar.text(): Carta(self.txtNombreIngresar.text(), self.dtpFechaValidezIngresar.selectedDate().toString('yyyy-MM-dd'), set(self.productos))})
+            self.init_seccion(0)()
             self.verificar_pestana()
             self.dialogo_informacion('Exito', 'Se ha agregado carta')
         else:
@@ -86,17 +85,22 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
     def modificar_carta_action(self):
         if self.dtpFechaValidezModificar.selectedDate() >= QDate.currentDate() and self.restaurante.cartas[self.cmbNombre.currentText()].productos:
-            self.restaurante.cartas.update({self.cmbNombre.currentText(): Carta(self.cmbNombre.currentText(), self.dtpFechaValidezModificar.selectedDate().toString('yyy-MM-dd'), self.restaurante.cartas[self.cmbNombre.currentText()].productos)})
-            self.__init__seccion(3)
+            self.restaurante.cartas.update({self.cmbNombre.currentText(): Carta(self.cmbNombre.currentText(), self.dtpFechaValidezModificar.selectedDate().toString('yyyy-MM-dd'), self.restaurante.cartas[self.cmbNombre.currentText()].productos)})
+            self.init_seccion(3)
             self.dialogo_informacion('Exito', 'Se ha modificado la carta')
         else:
             self.dialogo_informacion('Alerta', 'Llene todo los campos antes de modificar')
     def listar_cartas_action(self):
-        pass
+        self.jgdCartas.clear()
+        self.jgdCartas.setColumnCount(2)
+        self.jgdCartas.setRowCount(len(self.restaurante.cartas.keys()))
+        self.jgdCartas.setHorizontalHeaderLabels(['Numero carta', 'Fecha validez'])
+        for numero_carta, carta in enumerate(self.restaurante.cartas.values()):
+            self.jgdCartas.setItem(numero_carta, 0, QtWidgets.QTableWidgetItem(carta.nombre))
+            self.jgdCartas.setItem(numero_carta, 1, QtWidgets.QTableWidgetItem(carta.fecha_validez))
 
-    def __init__seccion(self, seccion):
+    def init_seccion(self, seccion):
         self.desconectar_conexion()
-
         def ingresar():
             self.tbCarta.setCurrentIndex(0)
             self.productos.clear()
@@ -104,9 +108,7 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
             self.cmbProductosIngresar.clear()
             self.cmbEliminarProductoIngresar.clear()
             self.dtpFechaValidezIngresar.setMinimumDate(QDate.currentDate())
-
             self.cmbProductosIngresar.addItems(list(self.restaurante.productos.keys()))
-
         def modificar():
             self.tbCarta.setCurrentIndex(1)
             self.cmbNombre.clear()
@@ -117,7 +119,9 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
             #Conectar conexion
             self.conectar_conexion()
+            print('entro')
             self.nombre_modificar_action()
+            print('salio')
 
         def eliminar():
             self.tbCarta.setCurrentIndex(2)
@@ -127,6 +131,7 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
         def listar():
             self.tbCarta.setCurrentIndex(3)
+            self.listar_cartas_action()
 
         secciones = {0: ingresar, 1: modificar, 2: eliminar, 3: listar}
 
@@ -141,8 +146,8 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
     def nombre_modificar_action(self):
         self.cmbProductosEliminarModificar.clear()
-        print(self.restaurante.cartas[self.cmbNombre.currentText()].productos)
         self.cmbProductosEliminarModificar.addItems(list(self.restaurante.cartas[self.cmbNombre.currentText()].productos))
+        self.dtpFechaValidezModificar.setSelectedDate(QDate.fromString(self.restaurante.cartas[self.cmbNombre.currentText()].fecha_validez, 'yyyy-MM-dd'))
 
 
     def verificar_pestana(self):
