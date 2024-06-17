@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from functools import reduce
 from PyQt6.QtCore import QDate
 from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Vistas.Restaurante.Ui_Disponibilidad import Ui_Disponibilidad
@@ -9,20 +10,19 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
         super(ControladorDiaDisponibilidad, self).__init__(parent)
         self.setupUi(self)
 
-        self.turnos = ('Mañana', 'Tarde', 'Noche')
         self.restaurante = Restaurante.getInstance()
         self.controlador_anterior = controlador_anterior
 
         self.verificar_pestana()
-        self.__init__action()
-        self.__init__seccion(seccion)()
+        self.init_seccion(seccion)()
+        self.init_action()
 
 
-    def __init__action(self):
+    def init_action(self):
         self.btnEliminar.clicked.connect(self.eliminar_dia_disponibilidad_action)
         self.btnGuardarCambios.clicked.connect(self.modificar_dia_disponibilidad_action)
         self.btnIngresarDisponibilidad.clicked.connect(self.ingresar_dia_disponibilidad_action)
-        self.tbDisponibilidad.currentChanged.connect(lambda: self.__init__seccion(self.tbDisponibilidad.currentIndex())())
+        self.tbDisponibilidad.currentChanged.connect(lambda: self.init_seccion(self.tbDisponibilidad.currentIndex())())
 
 
     def cambio_fecha_action(self, accion):
@@ -46,7 +46,7 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
 
     def eliminar_dia_disponibilidad_action(self):
         if self.restaurante.dias_disponibilidad[self.dtpFechaEliminar.selectedDate().toString('yyyy-MM-dd')].pop(self.cmbTurnoEliminar.currentText(), None) is not None:
-            self.__init__seccion(2)()
+            self.init_seccion(2)()
             self.verificar_pestana()
             self.dialogo_informacion('Exitoso', 'Eliminacion exitosa')
         else:
@@ -57,32 +57,42 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
             self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')] = {}
 
         self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][self.cmbTurnoIngresar.currentText()] = DiaDisponibilidad(self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd'), self.cmbTurnoIngresar.currentText(), self.sbNumeroPlazas.value())
-        self.__init__seccion(0)()
+        self.init_seccion(0)()
         self.verificar_pestana()
         self.dialogo_informacion('Exitoso', 'Ingreso de disponibilidad exitoso')
 
-
     def modificar_dia_disponibilidad_action(self):
 
-        if self.restaurante.dias_disponibilidad.get(self.dtpFechaModificar.selectedDate().toString('yyyy-MM-DD'), None) is not None and self.restaurante.dias_disponibilidad[self.dtpFechaModificar.selectedDate().toString('yyyy-MM-DD')].get(self.cmbTurnoModificar.currentText(), None) is not None:
+        if self.restaurante.dias_disponibilidad.get(self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd'), None) is not None and self.restaurante.dias_disponibilidad[self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd')].get(self.cmbTurnoModificar.currentText(), None) is not None:
             self.restaurante.dias_disponibilidad[self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd')][self.cmbTurnoModificar.currentText()] = DiaDisponibilidad(self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd'), self.cmbTurnoModificar.currentText(), self.sbNumeroPlazasModificar.value())
-            self.__init__seccion(1)()
+            self.init_seccion(1)()
             self.verificar_pestana()
             self.dialogo_informacion('Exito', 'Se ha modficado la disponibilidad del dia')
         else:
             self.dialogo_informacion('Alerta', 'No existe informacion de disponibilidad para este dia')
 
     def listar_dia_disponibilidad_action(self):
-        pass
+        self.jgdDisponibilidad.clear()
+        self.jgdDisponibilidad.setColumnCount(3)
+        self.jgdDisponibilidad.setRowCount(sum([len(self.restaurante.dias_disponibilidad[fecha].values()) for fecha in self.restaurante.dias_disponibilidad.keys()]))
+        self.jgdDisponibilidad.setHorizontalHeaderLabels(['Fecha', 'Turno', 'Numero plazas'])
+        row_count = 0
+        for fecha in self.restaurante.dias_disponibilidad.keys():
+            for turno in self.restaurante.dias_disponibilidad[fecha].keys():
+                self.jgdDisponibilidad.setItem(row_count, 0, QtWidgets.QTableWidgetItem(self.restaurante.dias_disponibilidad[fecha][turno].fecha))
+                self.jgdDisponibilidad.setItem(row_count, 1, QtWidgets.QTableWidgetItem(self.restaurante.dias_disponibilidad[fecha][turno].turno))
+                self.jgdDisponibilidad.setItem(row_count, 2, QtWidgets.QTableWidgetItem(str(self.restaurante.dias_disponibilidad[fecha][turno].numero_plazas)))
+            row_count += 1
 
-    def __init__seccion(self, seccion):
+
+    def init_seccion(self, seccion):
         self.desconectar_conexion()
         def ingresar():
             self.tbDisponibilidad.setCurrentIndex(0)
             self.cmbTurnoIngresar.clear()
             self.sbNumeroPlazas.setValue(0)
-            self.dtpFechaModificar.setMinimumDate(QDate.currentDate())
-            self.cmbTurnoIngresar.addItems(list(self.turnos))
+            self.dtpFechaIngresar.setMinimumDate(QDate.currentDate())
+            self.cmbTurnoIngresar.addItems(list(self.restaurante.turnos))
 
             #Conectar conexion
             self.conectar_conexion(1)()
@@ -93,7 +103,7 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
             self.cmbTurnoModificar.clear()
             self.sbNumeroPlazasModificar.setValue(0)
 
-            self.cmbTurnoModificar.addItems(list(self.turnos))
+            self.cmbTurnoModificar.addItems(list(self.restaurante.turnos))
             self.dtpFechaModificar.setMinimumDate(QDate.currentDate())
 
             #Conectar conexion
@@ -103,7 +113,7 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
         def eliminar():
             self.tbDisponibilidad.setCurrentIndex(2)
             self.cmbTurnoEliminar.clear()
-            self.cmbTurnoEliminar.addItems(list(self.turnos))
+            self.cmbTurnoEliminar.addItems(list(self.restaurante.turnos))
 
             #Conectar conexion
             self.conectar_conexion(3)()
@@ -111,6 +121,7 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
 
         def listar():
             self.tbDisponibilidad.setCurrentIndex(3)
+            self.listar_dia_disponibilidad_action()
 
         secciones = {0: ingresar, 1: modificar, 2: eliminar, 3: listar}
 

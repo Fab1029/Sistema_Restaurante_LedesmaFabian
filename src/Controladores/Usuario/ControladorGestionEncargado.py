@@ -12,9 +12,9 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
         self.controlador_anterior = controlador_anterior
         self.gestion_usuarios = GestionUsuarios.getInstance()
 
-        self.init_action()
         self.verificar_pestana()
         self.init_seccion(seccion)()
+        self.init_action()
 
     def init_action(self):
         self.btnEliminar.clicked.connect(self.eliminar_encargado_action)
@@ -52,7 +52,14 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
         else:
             self.dialogo_informacion('Alerta', 'Ingrese todos los campos')
     def listar_encargados_action(self):
-        pass
+        self.jgdListaEncargados.clear()
+        self.jgdListaEncargados.setColumnCount(3)
+        self.jgdListaEncargados.setRowCount(len(self.gestion_usuarios.encargados.keys()))
+        self.jgdListaEncargados.setHorizontalHeaderLabels(['Cedula', 'Nombre', 'Direccion'])
+        for numero_encargado, encargado in enumerate(self.gestion_usuarios.encargados.values()):
+            self.jgdListaEncargados.setItem(numero_encargado, 0, QtWidgets.QTableWidgetItem(encargado.cedula))
+            self.jgdListaEncargados.setItem(numero_encargado, 1, QtWidgets.QTableWidgetItem(encargado.nombre))
+            self.jgdListaEncargados.setItem(numero_encargado, 2, QtWidgets.QTableWidgetItem(encargado.direccion))
 
     def init_seccion(self, seccion):
         self.desconectar_conexion()
@@ -80,6 +87,7 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
 
         def listar():
             self.tbEncargado.setCurrentIndex(3)
+            self.listar_encargados_action()
 
         secciones = {0: ingresar, 1: modificar, 2: eliminar, 3: listar}
 

@@ -12,7 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Carta(object):
     def setupUi(self, Ui_Carta):
         Ui_Carta.setObjectName("Ui_Carta")
-        Ui_Carta.resize(1092, 835)
+        Ui_Carta.resize(1366, 768)
+        Ui_Carta.setMinimumSize(QtCore.QSize(800, 600))
+        Ui_Carta.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Carta.setStyleSheet("QWidget{\n"
 "background-color:white;\n"
 "}\n"
@@ -221,12 +223,16 @@ class Ui_Carta(object):
         self.jgdCartas.setObjectName("jgdCartas")
         self.jgdCartas.setColumnCount(0)
         self.jgdCartas.setRowCount(0)
+        self.jgdCartas.horizontalHeader().setCascadingSectionResizes(True)
+        self.jgdCartas.horizontalHeader().setDefaultSectionSize(600)
+        self.jgdCartas.horizontalHeader().setMinimumSectionSize(100)
+        self.jgdCartas.verticalHeader().setCascadingSectionResizes(True)
         self.gridLayout_5.addWidget(self.jgdCartas, 0, 0, 1, 1)
         self.tbCarta.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbCarta, 0, 0, 1, 1)
 
         self.retranslateUi(Ui_Carta)
-        self.tbCarta.setCurrentIndex(0)
+        self.tbCarta.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Carta)
 
     def retranslateUi(self, Ui_Carta):

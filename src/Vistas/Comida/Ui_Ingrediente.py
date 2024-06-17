@@ -12,7 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Ingrediente(object):
     def setupUi(self, Ui_Ingrediente):
         Ui_Ingrediente.setObjectName("Ui_Ingrediente")
-        Ui_Ingrediente.resize(906, 596)
+        Ui_Ingrediente.resize(1366, 768)
+        Ui_Ingrediente.setMinimumSize(QtCore.QSize(800, 600))
+        Ui_Ingrediente.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Ingrediente.setStyleSheet("QWidget{\n"
 "background-color:white;\n"
 "}\n"
@@ -59,6 +61,8 @@ class Ui_Ingrediente(object):
         self.gridLayout = QtWidgets.QGridLayout(Ui_Ingrediente)
         self.gridLayout.setObjectName("gridLayout")
         self.tbIngrediente = QtWidgets.QTabWidget(parent=Ui_Ingrediente)
+        self.tbIngrediente.setMinimumSize(QtCore.QSize(800, 600))
+        self.tbIngrediente.setMaximumSize(QtCore.QSize(1366, 768))
         self.tbIngrediente.setObjectName("tbIngrediente")
         self.tbIngresar = QtWidgets.QWidget()
         self.tbIngresar.setObjectName("tbIngresar")
@@ -133,16 +137,22 @@ class Ui_Ingrediente(object):
         self.gridLayout_5 = QtWidgets.QGridLayout(self.tbListar)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.jgdIngredientes = QtWidgets.QTableWidget(parent=self.tbListar)
+        self.jgdIngredientes.setMinimumSize(QtCore.QSize(800, 600))
+        self.jgdIngredientes.setMaximumSize(QtCore.QSize(1366, 768))
         self.jgdIngredientes.setObjectName("jgdIngredientes")
         self.jgdIngredientes.setColumnCount(0)
         self.jgdIngredientes.setRowCount(0)
-
+        self.jgdIngredientes.horizontalHeader().setCascadingSectionResizes(True)
+        self.jgdIngredientes.horizontalHeader().setDefaultSectionSize(400)
+        self.jgdIngredientes.horizontalHeader().setMinimumSectionSize(100)
+        self.jgdIngredientes.horizontalHeader().setStretchLastSection(True)
+        self.jgdIngredientes.verticalHeader().setCascadingSectionResizes(True)
         self.gridLayout_5.addWidget(self.jgdIngredientes, 0, 0, 1, 1)
         self.tbIngrediente.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbIngrediente, 0, 0, 1, 1)
 
         self.retranslateUi(Ui_Ingrediente)
-        self.tbIngrediente.setCurrentIndex(0)
+        self.tbIngrediente.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Ingrediente)
 
     def retranslateUi(self, Ui_Ingrediente):
