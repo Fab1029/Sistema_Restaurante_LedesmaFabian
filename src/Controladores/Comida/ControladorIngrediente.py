@@ -17,6 +17,7 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         #Se manda el metodo para hacer visible el controlador anterior
         self.controlador_anterior = controlador_anterior
 
+        self.verificar_pestana()
         self.init_seccion(seccion)()
         self.init_actions()
 

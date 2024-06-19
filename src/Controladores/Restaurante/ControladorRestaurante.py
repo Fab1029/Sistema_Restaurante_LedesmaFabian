@@ -4,11 +4,12 @@ from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Modelos.Usuario.GestionUsuarios import GestionUsuarios
 from src.Controladores.Restaurante.ControladorCarta import ControladorCarta
 from src.Controladores.Comida.ControladorProducto import ControladorProducto
+from src.Controladores.Usuario.ControladorAcercaDe import ControladorAcercaDe
 from src.Controladores.Restaurante.ControladorReserva import ControladorReserva
 from src.Controladores.Comida.ControladorIngrediente import ControladorIngrediente
 from src.Controladores.Usuario.ControladorGestionEncargado import ControladorGestionEncargado
 from src.Controladores.Restaurante.ControladorDiaDisponibilidad import ControladorDiaDisponibilidad
-
+from src.Controladores.Restaurante.ControladorInformacionRestaurante import ControladorInformacionRestaurante
 class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
 
     def __init__(self, isAdmin, parent= None):
@@ -23,6 +24,7 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         if not isAdmin:
             self.jmbCarta.setEnabled(False)
             self.jmbPersonal.setEnabled(False)
+            self.jmbConfiguracion.setEnabled(False)
 
     def init_actions(self):
         self.jmbSalir.triggered.connect(self.salir)
@@ -56,7 +58,10 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         self.jmbPersonalListar.triggered.connect(lambda: self.init_controlador('controlador_gestion_encargado')(3))
         self.jmbDisponibilidadListar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(3) if self.restaurante.dias_disponibilidad else self.dialogo_informacion('Informacion', 'Disponibilidad aun no ingresada al sistema'))
 
+
+        self.jmbAcercaDe.triggered.connect(lambda: self.init_controlador('controlador_acerca_de')())
         self.jtbReservaIngresar.triggered.connect(lambda: self.init_controlador('controlador_reserva')(0))
+        self.jmbConfiguracion.triggered.connect(lambda: self.init_controlador('controlador_configuracion')())
         self.jtbDisponibilidadIngresar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(0))
 
     def init_controlador(self, tipo_controlador):
@@ -79,12 +84,18 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         def reserva(seccion):
             self.ventana = ControladorReserva(self.show, seccion)
             self.ventana.show()
-
-
+        def configuracion():
+            self.ventana = ControladorInformacionRestaurante(self.show)
+            self.ventana.show()
+        def acerca_de():
+            print('entro')
+            self.ventana = ControladorAcercaDe(self.show)
+            self.ventana.show()
 
         controladores = {'controlador_ingrediente': ingrediente, 'controlador_producto': producto,
                          'controlador_carta': carta, 'controlador_dia_disponibilidad': dia_disponibilidad,
-                         'controlador_gestion_encargado': encargado, 'controlador_reserva': reserva}
+                         'controlador_gestion_encargado': encargado, 'controlador_reserva': reserva,
+                         'controlador_configuracion': configuracion, 'controlador_acerca_de': acerca_de}
 
         return controladores[tipo_controlador]
 

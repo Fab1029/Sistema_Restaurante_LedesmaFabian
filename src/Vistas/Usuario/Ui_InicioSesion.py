@@ -63,9 +63,6 @@ class Ui_InicioSesion(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.cbxMostrarClave = QtWidgets.QCheckBox(parent=Ui_InicioSesion)
-        self.cbxMostrarClave.setObjectName("cbxMostrarClave")
-        self.gridLayout_2.addWidget(self.cbxMostrarClave, 8, 1, 1, 1)
         self.txtClave = QtWidgets.QLineEdit(parent=Ui_InicioSesion)
         self.txtClave.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
         self.txtClave.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
@@ -97,6 +94,9 @@ class Ui_InicioSesion(object):
         self.gridLayout_2.addItem(spacerItem, 1, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.gridLayout_2.addItem(spacerItem1, 9, 0, 1, 1)
+        self.cbxMostrarClave = QtWidgets.QCheckBox(parent=Ui_InicioSesion)
+        self.cbxMostrarClave.setObjectName("cbxMostrarClave")
+        self.gridLayout_2.addWidget(self.cbxMostrarClave, 7, 1, 1, 1)
         self.horizontalLayout.addLayout(self.gridLayout_2)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
@@ -106,10 +106,10 @@ class Ui_InicioSesion(object):
     def retranslateUi(self, Ui_InicioSesion):
         _translate = QtCore.QCoreApplication.translate
         Ui_InicioSesion.setWindowTitle(_translate("Ui_InicioSesion", "Inicio sesion"))
-        self.cbxMostrarClave.setText(_translate("Ui_InicioSesion", "Mostrar contraseña"))
         self.txtClave.setPlaceholderText(_translate("Ui_InicioSesion", "Ingrese contraseña"))
         self.txtUsuario.setPlaceholderText(_translate("Ui_InicioSesion", "Ingrese cédula"))
         self.btnEntrar.setText(_translate("Ui_InicioSesion", "Entrar"))
         self.lblClave.setText(_translate("Ui_InicioSesion", "Contraseña"))
         self.lblInicioSesion.setText(_translate("Ui_InicioSesion", "Inicio Sesión"))
         self.lblUsuario.setText(_translate("Ui_InicioSesion", "Usuario"))
+        self.cbxMostrarClave.setText(_translate("Ui_InicioSesion", "Mostrar contraseña"))
