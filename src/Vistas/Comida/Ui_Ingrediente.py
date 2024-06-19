@@ -164,7 +164,7 @@ class Ui_Ingrediente(object):
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
 
         self.retranslateUi(Ui_Ingrediente)
-        self.tbIngrediente.setCurrentIndex(0)
+        self.tbIngrediente.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Ingrediente)
 
     def retranslateUi(self, Ui_Ingrediente):

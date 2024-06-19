@@ -253,7 +253,7 @@ class Ui_Carta(object):
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
 
         self.retranslateUi(Ui_Carta)
-        self.tbCarta.setCurrentIndex(0)
+        self.tbCarta.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Carta)
 
     def retranslateUi(self, Ui_Carta):
