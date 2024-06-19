@@ -11,13 +11,18 @@ from src.Controladores.Restaurante.ControladorDiaDisponibilidad import Controlad
 
 class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
 
-    def __init__(self, parent= None):
+    def __init__(self, isAdmin, parent= None):
         super(ControladorRestaurante, self).__init__(parent)
         self.setupUi(self)
 
+        self.init_ventana(isAdmin)
         self.init_actions()
         self.restaurante = Restaurante.getInstance()
 
+    def init_ventana(self, isAdmin):
+        if not isAdmin:
+            self.jmbCarta.setEnabled(False)
+            self.jmbPersonal.setEnabled(False)
 
     def init_actions(self):
         self.jmbSalir.triggered.connect(self.salir)

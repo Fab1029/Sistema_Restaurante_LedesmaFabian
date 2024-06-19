@@ -108,7 +108,7 @@ class Ui_InicioSesion(object):
         Ui_InicioSesion.setWindowTitle(_translate("Ui_InicioSesion", "Inicio sesion"))
         self.cbxMostrarClave.setText(_translate("Ui_InicioSesion", "Mostrar contraseña"))
         self.txtClave.setPlaceholderText(_translate("Ui_InicioSesion", "Ingrese contraseña"))
-        self.txtUsuario.setPlaceholderText(_translate("Ui_InicioSesion", "Ingrese cedula"))
+        self.txtUsuario.setPlaceholderText(_translate("Ui_InicioSesion", "Ingrese cédula"))
         self.btnEntrar.setText(_translate("Ui_InicioSesion", "Entrar"))
         self.lblClave.setText(_translate("Ui_InicioSesion", "Contraseña"))
         self.lblInicioSesion.setText(_translate("Ui_InicioSesion", "Inicio Sesión"))

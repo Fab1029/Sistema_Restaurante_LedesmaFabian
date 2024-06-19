@@ -5,7 +5,7 @@ from src.Controladores.Restaurante.ControladorRestaurante import ControladorRest
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    ControladorInicioSesion(ControladorRestaurante()).show()
+    ControladorInicioSesion(ControladorRestaurante).show()
     sys.exit(app.exec())
 
 

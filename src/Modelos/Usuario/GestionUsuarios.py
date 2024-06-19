@@ -17,7 +17,7 @@ class GestionUsuarios:
         self.cargar_admin()
 
     def cargar_admin(self):
-        self.encargados['0000000000'] = Encargado('0000000000', 'admin', 'admin', 'admin')
+        self.encargados['admin'] = Encargado('admin', 'admin', 'admin', 'admin')
 
     def cargar(self):
         self.cargar_datos_usuarios(1)(RutaArchivos().rutas[-1][0], self.encargados, RutaArchivos().rutas[-1][1])
