@@ -6,3 +6,4 @@ class Reserva:
         self.numero_comensales = numero_comensales
         self.pedidos = pedidos
 
+

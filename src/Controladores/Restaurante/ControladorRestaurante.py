@@ -6,6 +6,7 @@ from src.Controladores.Restaurante.ControladorCarta import ControladorCarta
 from src.Controladores.Comida.ControladorProducto import ControladorProducto
 from src.Controladores.Usuario.ControladorAcercaDe import ControladorAcercaDe
 from src.Controladores.Restaurante.ControladorReserva import ControladorReserva
+from src.Controladores.Restaurante.ControladorReportes import ControladorReportes
 from src.Controladores.Comida.ControladorIngrediente import ControladorIngrediente
 from src.Controladores.Usuario.ControladorGestionEncargado import ControladorGestionEncargado
 from src.Controladores.Restaurante.ControladorDiaDisponibilidad import ControladorDiaDisponibilidad
@@ -24,6 +25,7 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         if not isAdmin:
             self.jmbCarta.setEnabled(False)
             self.jmbPersonal.setEnabled(False)
+            self.jmbReportes.setEnabled(False)
             self.jmbConfiguracion.setEnabled(False)
 
     def init_actions(self):
@@ -64,6 +66,10 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
         self.jmbConfiguracion.triggered.connect(lambda: self.init_controlador('controlador_configuracion')())
         self.jtbDisponibilidadIngresar.triggered.connect(lambda: self.init_controlador('controlador_dia_disponibilidad')(0))
 
+        self.jmbReporteDinero.triggered.connect(lambda: self.init_controlador('controlador_reportes')('reporte_dinero'))
+        self.jmbReporteProducto.triggered.connect(lambda: self.init_controlador('controlador_reportes')('reporte_productos'))
+        self.jmbReporteConcurrencia.triggered.connect(lambda: self.init_controlador('controlador_reportes')('reporte_concurrencia'))
+
     def init_controlador(self, tipo_controlador):
         self.hide()
         def ingrediente(seccion):
@@ -88,14 +94,19 @@ class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
             self.ventana = ControladorInformacionRestaurante(self.show)
             self.ventana.show()
         def acerca_de():
-            print('entro')
             self.ventana = ControladorAcercaDe(self.show)
             self.ventana.show()
+
+        def reportes(tipo_reporte):
+            self.ventana = ControladorReportes(self.show, tipo_reporte)
+            self.ventana.show()
+
 
         controladores = {'controlador_ingrediente': ingrediente, 'controlador_producto': producto,
                          'controlador_carta': carta, 'controlador_dia_disponibilidad': dia_disponibilidad,
                          'controlador_gestion_encargado': encargado, 'controlador_reserva': reserva,
-                         'controlador_configuracion': configuracion, 'controlador_acerca_de': acerca_de}
+                         'controlador_configuracion': configuracion, 'controlador_acerca_de': acerca_de,
+                         'controlador_reportes': reportes}
 
         return controladores[tipo_controlador]
 
