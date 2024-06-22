@@ -51,9 +51,9 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
         if self.restaurante.dias_disponibilidad[self.dtpFechaEliminar.selectedDate().toString('yyyy-MM-dd')].pop(self.cmbTurnoEliminar.currentText(), None) is not None:
             self.init_seccion(2)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exitoso', 'Eliminacion exitosa')
+            self.dialogo_informacion('Éxito', 'Eliminación exitosa')
         else:
-            self.dialogo_informacion('Alerta', 'No existe informacion de disponibilidad')
+            self.dialogo_informacion('Alerta', 'No existe información de disponibilidad')
 
     def ingresar_dia_disponibilidad_action(self):
         if self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd') not in self.restaurante.dias_disponibilidad:
@@ -62,7 +62,7 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
         self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][self.cmbTurnoIngresar.currentText()] = DiaDisponibilidad(self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd'), self.cmbTurnoIngresar.currentText(), self.sbNumeroPlazas.value())
         self.init_seccion(0)()
         self.verificar_pestana()
-        self.dialogo_informacion('Exitoso', 'Ingreso de disponibilidad exitoso')
+        self.dialogo_informacion('Éxito', 'Ingreso de disponibilidad exitosamente')
 
     def modificar_dia_disponibilidad_action(self):
 
@@ -70,15 +70,15 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
             self.restaurante.dias_disponibilidad[self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd')][self.cmbTurnoModificar.currentText()] = DiaDisponibilidad(self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd'), self.cmbTurnoModificar.currentText(), self.sbNumeroPlazasModificar.value())
             self.init_seccion(1)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Se ha modficado la disponibilidad del dia')
+            self.dialogo_informacion('Éxito', 'Se ha modficado la disponibilidad del día')
         else:
-            self.dialogo_informacion('Alerta', 'No existe informacion de disponibilidad para este dia')
+            self.dialogo_informacion('Alerta', 'No existe información de disponibilidad para este día')
 
     def listar_dia_disponibilidad_action(self):
         self.jgdDisponibilidad.clear()
         self.jgdDisponibilidad.setColumnCount(3)
         self.jgdDisponibilidad.setRowCount(sum([len(self.restaurante.dias_disponibilidad[fecha].values()) for fecha in self.restaurante.dias_disponibilidad.keys()]))
-        self.jgdDisponibilidad.setHorizontalHeaderLabels(['Fecha', 'Turno', 'Numero plazas'])
+        self.jgdDisponibilidad.setHorizontalHeaderLabels(['Fecha', 'Turno', 'Número plazas'])
         row_count = 0
         for fecha in self.restaurante.dias_disponibilidad.keys():
             for turno in self.restaurante.dias_disponibilidad[fecha].keys():

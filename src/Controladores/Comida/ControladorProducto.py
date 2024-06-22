@@ -43,18 +43,18 @@ class ControladorProducto(QtWidgets.QWidget, Ui_Producto):
 
         self.cmbIngredienteModificar.clear()
         self.cmbIngredienteModificar.addItems(list(self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes))
-        self.dialogo_informacion('Exito', 'Eliminacion exitosa')
+        self.dialogo_informacion('Éxito', 'Eliminación exitosa')
 
 
     def agregar_ingrediente_action(self, accion):
         def agregar_ingrediente_ingresar():
             self.ingredientes.append(self.cmbIngredienteIngresar.currentText())
-            self.dialogo_informacion('Exito', 'Ingreso exitoso')
+            self.dialogo_informacion('Éxito', 'Ingreso exitoso')
         def agregar_ingrediente_modificar():
             self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes.add(self.cmbAgregarIngredienteModificar.currentText())
             self.cmbIngredienteModificar.clear()
             self.cmbIngredienteModificar.addItems(list(self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes))
-            self.dialogo_informacion('Exito', 'Ingreso exitoso')
+            self.dialogo_informacion('Éxito', 'Ingreso exitoso')
 
         agregar_ingrediente = {1: agregar_ingrediente_ingresar, 2: agregar_ingrediente_modificar}
 
@@ -65,14 +65,14 @@ class ControladorProducto(QtWidgets.QWidget, Ui_Producto):
         self.resturante.productos.pop(self.cmbNombreEliminar.currentText(), None)
         self.init_seccion(2)()
         self.verificar_pestana()
-        self.dialogo_informacion('Exito', 'Producto eliminado')
+        self.dialogo_informacion('Éxito', 'Producto eliminado')
 
     def ingresar_producto_action(self):
         if self.txtNombreIngresar.text() and self.txtDescripcionIngresar.text() and self.ingredientes:
             self.resturante.productos.update({self.txtNombreIngresar.text(): Producto(self.txtNombreIngresar.text(), self.txtDescripcionIngresar.text(), self.dsbPrecioIngresar.value(), set(self.ingredientes))})
             self.init_seccion(0)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Producto ingresado exitosamente')
+            self.dialogo_informacion('Éxito', 'Producto ingresado exitosamente')
 
         else:
             self.dialogo_informacion('Alerta', 'Ingrese todos los campos')
@@ -81,14 +81,14 @@ class ControladorProducto(QtWidgets.QWidget, Ui_Producto):
         if self.txtDescripcionModificar.text() and self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes:
             self.resturante.productos.update({self.cmbNombreModificar.currentText(): Producto(self.cmbNombreModificar.currentText(), self.txtDescripcionModificar.text(), self.dsbPrecioModificar.value(), self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes)})
             self.init_seccion(3)
-            self.dialogo_informacion('Exito', 'Cambios aplicados')
+            self.dialogo_informacion('Éxito', 'Cambios aplicados exitosamente')
         else:
             self.dialogo_informacion('Alerta', 'Ingrese todos los campos')
     def listar_productos_action(self):
         self.jgdProductos.clear()
         self.jgdProductos.setColumnCount(3)
         self.jgdProductos.setRowCount(len(self.resturante.productos.keys()))
-        self.jgdProductos.setHorizontalHeaderLabels(['Nombre', 'Descripcion', 'Precio'])
+        self.jgdProductos.setHorizontalHeaderLabels(['Nombre', 'Descripción', 'Precio'])
 
         for numero_producto, producto in enumerate(self.resturante.productos.values()):
             self.jgdProductos.setItem(numero_producto, 0, QtWidgets.QTableWidgetItem(producto.nombre))

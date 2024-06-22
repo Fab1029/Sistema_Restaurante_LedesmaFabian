@@ -38,14 +38,14 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
             if self.productos:
                 self.productos.remove(self.cmbEliminarProductoIngresar.currentText())
                 self.producto_action()
-                self.dialogo_informacion('Exito', 'Se ha borrado producto de carta')
+                self.dialogo_informacion('Éxito', 'Se ha borrado producto de carta')
             else:
                 self.dialogo_informacion('Alerta', 'Ingrese productos previamente')
         def eliminar_producto_modificar():
             if self.restaurante.cartas[self.cmbNombre.currentText()].productos:
                 self.restaurante.cartas[self.cmbNombre.currentText()].productos.remove(self.cmbProductosEliminarModificar.currentText())
                 self.nombre_modificar_action()
-                self.dialogo_informacion('Exito', 'Se ha borrado producto de carta')
+                self.dialogo_informacion('Éxito', 'Se ha borrado producto de carta')
             else:
                 self.dialogo_informacion('Alerta', 'Ingrese productos previamente')
 
@@ -59,12 +59,12 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
         def agregar_producto_ingresar():
             self.productos.append(self.cmbProductosIngresar.currentText())
             self.producto_action()
-            self.dialogo_informacion('Exito', 'Se ha agregado el producto exitosamente')
+            self.dialogo_informacion('Éxito', 'Se ha agregado el producto exitosamente')
 
         def agregar_producto_modificar():
             self.restaurante.cartas[self.cmbNombre.currentText()].productos.add(self.cmbProductosModificar.currentText())
             self.nombre_modificar_action()
-            self.dialogo_informacion('Exito', 'Se ha agregado el producto exitosamente')
+            self.dialogo_informacion('Éxito', 'Se ha agregado el producto exitosamente')
 
         agregar_ingrediente = {1: agregar_producto_ingresar, 2: agregar_producto_modificar}
 
@@ -73,7 +73,7 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
     def eliminar_carta_action(self):
         self.restaurante.cartas.pop(self.cmbNombre.currentText(), None)
-        self.dialogo_informacion('Exito', 'Se ha eliminado la carta')
+        self.dialogo_informacion('Éxito', 'Se ha eliminado la carta')
         self.init_seccion(2)()
         self.verificar_pestana()
 
@@ -83,7 +83,7 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
             self.restaurante.cartas.update({self.txtNombreIngresar.text(): Carta(self.txtNombreIngresar.text(), self.dtpFechaValidezIngresar.selectedDate().toString('yyyy-MM-dd'), set(self.productos))})
             self.init_seccion(0)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Se ha agregado carta')
+            self.dialogo_informacion('Éxito', 'Se ha agregado carta')
         else:
             self.dialogo_informacion('Alerta', 'Llene todo los campos antes de ingresar')
 
@@ -91,14 +91,14 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
         if self.dtpFechaValidezModificar.selectedDate() >= QDate.currentDate() and self.restaurante.cartas[self.cmbNombre.currentText()].productos:
             self.restaurante.cartas.update({self.cmbNombre.currentText(): Carta(self.cmbNombre.currentText(), self.dtpFechaValidezModificar.selectedDate().toString('yyyy-MM-dd'), self.restaurante.cartas[self.cmbNombre.currentText()].productos)})
             self.init_seccion(3)
-            self.dialogo_informacion('Exito', 'Se ha modificado la carta')
+            self.dialogo_informacion('Éxito', 'Se ha modificado la carta')
         else:
             self.dialogo_informacion('Alerta', 'Llene todo los campos antes de modificar')
     def listar_cartas_action(self):
         self.jgdCartas.clear()
         self.jgdCartas.setColumnCount(2)
         self.jgdCartas.setRowCount(len(self.restaurante.cartas.keys()))
-        self.jgdCartas.setHorizontalHeaderLabels(['Numero carta', 'Fecha validez'])
+        self.jgdCartas.setHorizontalHeaderLabels(['Número carta', 'Fecha validez'])
         for numero_carta, carta in enumerate(self.restaurante.cartas.values()):
             self.jgdCartas.setItem(numero_carta, 0, QtWidgets.QTableWidgetItem(carta.nombre))
             self.jgdCartas.setItem(numero_carta, 1, QtWidgets.QTableWidgetItem(carta.fecha_validez))
@@ -123,9 +123,8 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
 
             #Conectar conexion
             self.conectar_conexion()
-            print('entro')
             self.nombre_modificar_action()
-            print('salio')
+
 
         def eliminar():
             self.tbCarta.setCurrentIndex(2)

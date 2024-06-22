@@ -38,7 +38,7 @@ class ControladorInformacionRestaurante(QtWidgets.QWidget, Ui_InformacionRestaur
             self.restaurante.ubicacion = self.txtDireccion.text()
             self.restaurante.nombre = self.txtNombreRestaurante.text()
             self.restaurante.razon_social = self.txtRazonSocial.text()
-            self.dialogo_informacion('Exito', 'Cambios guardados')
+            self.dialogo_informacion('Éxito', 'Cambios guardados')
         else:
             self.dialogo_informacion('Alerta', 'No se realizaron los cambios')
 

@@ -35,18 +35,18 @@ class ControladorIngrediente(QtWidgets.QWidget, Ui_Ingrediente):
         self.resturante.ingredientes.pop(self.cmbNombreEliminar.currentText())
         self.init_seccion(2)()
         self.verificar_pestana()
-        self.dialogo_informacion('Exito', 'Ingrediente eliminado exitosamente')
+        self.dialogo_informacion('Éxito', 'Ingrediente eliminado exitosamente')
     def ingresar_ingrediente_action(self):
         if self.txtNombreIngresar.text():
             self.resturante.ingredientes.update({self.txtNombreIngresar.text(): Ingrediente(self.txtNombreIngresar.text(), self.cmbTipoIngresar.currentText(), self.cmbMedidaIngresar.currentText())})
             self.init_seccion(0)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Ingreso de ingrediente exitoso')
+            self.dialogo_informacion('Éxito', 'Ingreso de ingrediente exitoso')
         else:
             self.dialogo_informacion('Alerta', 'Ingrese el nombre del ingrediente')
     def modificar_ingrediente_action(self):
         self.resturante.ingredientes.update({self.cmbNombreModificar.currentText(): Ingrediente(self.cmbNombreModificar.currentText(), self.cmbTipoModificar.currentText(), self.cmbMedidaModificar.currentText())})
-        self.dialogo_informacion('Exito', 'Ingrediente modificado exitosamente')
+        self.dialogo_informacion('Éxito', 'Ingrediente modificado exitosamente')
 
     def listar_ingredientes_action(self):
         self.jgdIngredientes.clear()

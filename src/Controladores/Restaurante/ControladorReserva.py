@@ -27,6 +27,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
     def init_action(self):
         self.btnReservar.clicked.connect(self.ingresar_reserva_action)
         self.btnGuardarCambios.clicked.connect(self.modificar_reserva_action)
+        self.btnEliminarReserva.clicked.connect(lambda: self.eliminar_reserva_action())
         self.btnEliminarPedidoIngresar.clicked.connect(lambda: self.pedido_action(2)())
         self.btnEliminarPedidoModificar.clicked.connect(lambda: self.pedido_action(4)())
         self.btnGuardarCambiosPedidoIngresar.clicked.connect(lambda: self.pedido_action(1)())
@@ -35,21 +36,20 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
         self.btnAgregarProductoIngresar.clicked.connect(lambda: self.agregar_producto_a_pedido_action(1)())
         self.btnAgregarProductoModificar.clicked.connect(lambda: self.agregar_producto_a_pedido_action(2)())
 
-        self.btnEliminarReserva.clicked.connect(lambda: self.eliminar_reserva_action())
-
-
     def agregar_producto_a_pedido_action(self, accion):
         def ingresar():
             #Ya esta revisada esta funcionalidad
             if self.cmbAgregarProductosIngresar.currentText():
                 self.pedido.update({self.cmbAgregarProductosIngresar.currentText(): self.sbCantidadProductoIngresar.value()})
+                self.cmbPedidoIngresar.blockSignals(True)
                 self.cmbPedidoIngresar.clear()
                 self.sbCantidadProductoIngresar.setValue(0)
                 self.cmbPedidoIngresar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoIngresar.setValue(self.pedido[self.cmbPedidoIngresar.currentText()])
-                self.dialogo_informacion('Exito', 'Se agrego producto a pedido')
+                self.dialogo_informacion('Éxito', 'Se agregó producto a pedido')
+                self.cmbPedidoIngresar.blockSignals(False)
             else:
-                self.dialogo_informacion('Alerta', 'No se agrego producto a pedido')
+                self.dialogo_informacion('Alerta', 'No se agregó producto a pedido')
         #Acabado pero revisar
         def modificar():
             if self.cmbAgregarProductoModificar.currentText():
@@ -59,10 +59,10 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
                 self.sbCantidadProductoModificar.setValue(0)
                 self.cmbPedidoModificar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoModificar.setValue(self.pedido[self.cmbPedidoModificar.currentText()])
-                self.dialogo_informacion('Exito', 'Se agrego producto a pedido')
+                self.dialogo_informacion('Éxito', 'Se agregó producto a pedido')
                 self.cmbPedidoModificar.blockSignals(False)
             else:
-                self.dialogo_informacion('Alerta', 'No se agrego producto a pedido')
+                self.dialogo_informacion('Alerta', 'No se agregó producto a pedido')
 
 
         producto_a_pedido = {1: ingresar, 2: modificar}
@@ -78,7 +78,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
                 self.cmbPedidoIngresar.clear()
                 self.cmbPedidoIngresar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoIngresar.setValue(self.pedido[self.cmbPedidoIngresar.currentText()])
-                self.dialogo_informacion('Exito', 'Cambio guardado')
+                self.dialogo_informacion('Éxito', 'Cambio guardado')
                 self.cmbPedidoIngresar.blockSignals(False)
             else:
                 self.dialogo_informacion('Alerta', 'No se ha podido realizar el cambio')
@@ -91,7 +91,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
                 self.cmbPedidoIngresar.clear()
                 self.cmbPedidoIngresar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoIngresar.setValue(self.pedido[self.cmbPedidoIngresar.currentText()] if self.pedido else 0)
-                self.dialogo_informacion('Exito', 'Producto eliminado')
+                self.dialogo_informacion('Éxito', 'Producto eliminado')
                 self.cmbPedidoIngresar.blockSignals(False)
             else:
                 self.dialogo_informacion('Alerta', 'No se ha eliminado producto')
@@ -103,7 +103,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
                 self.cmbPedidoModificar.clear()
                 self.cmbPedidoModificar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoModificar.setValue(self.pedido[self.cmbPedidoModificar.currentText()])
-                self.dialogo_informacion('Exito', 'Cambio guardado')
+                self.dialogo_informacion('Éxito', 'Cambio guardado')
                 self.cmbPedidoModificar.blockSignals(False)
             else:
                 self.dialogo_informacion('Alerta', 'No se ha podido realizar el cambio')
@@ -115,7 +115,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
                 self.cmbPedidoModificar.clear()
                 self.cmbPedidoModificar.addItems(list(self.pedido.keys()))
                 self.sbCantidadPedidoModificar.setValue(self.pedido[self.cmbPedidoModificar.currentText()] if self.pedido else 0)
-                self.dialogo_informacion('Exito', 'Producto eliminado')
+                self.dialogo_informacion('Éxito', 'Producto eliminado')
                 self.cmbPedidoModificar.blockSignals(False)
             else:
                 self.dialogo_informacion('Alerta', 'No se ha eliminado producto')
@@ -166,7 +166,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
         if self.restaurante.reservas.pop(self.cmbNumeroReservaEliminar.currentText(), None) is not None:
             self.init_seccion(2)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Se ha eliminado reserva')
+            self.dialogo_informacion('Éxito', 'Se ha eliminado reserva')
         else:
             self.dialogo_informacion('Alerta', 'No se ha podido eliminar reserva')
 
@@ -179,7 +179,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
             self.codigo_reserva = self.generar_codigo()
             self.init_seccion(0)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Ingreso correcto')
+            self.dialogo_informacion('Éxito', 'Ingreso correcto')
 
         else:
             self.dialogo_informacion('Alerta', 'No se pudo realizar la reserva')
@@ -189,7 +189,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
             self.restaurante.reservas.update({self.cmbNumeroReservaModificar.currentText(): Reserva(self.dtpFechaModificar.selectedDate().toString('yyyy-MM-dd'), self.cmbTurnoModificar.currentText(), self.cmbNumeroReservaModificar.currentText(), self.sbNumeroComensalesModificar.value(), dict(self.pedido))})
             self.init_seccion(1)()
             self.verificar_pestana()
-            self.dialogo_informacion('Exito', 'Cambios guardados')
+            self.dialogo_informacion('Éxito', 'Cambios guardados')
         else:
             self.dialogo_informacion('Alerta', 'No se realizaron los cambios')
 
@@ -197,7 +197,7 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
         self.jgdReservas.clear()
         self.jgdReservas.setColumnCount(4)
         self.jgdReservas.setRowCount(len(self.restaurante.reservas.keys()))
-        self.jgdReservas.setHorizontalHeaderLabels(['Numero reserva', 'Fecha', 'Turno', 'Numero comensales'])
+        self.jgdReservas.setHorizontalHeaderLabels(['Número reserva', 'Fecha', 'Turno', 'Número comensales'])
         for numero_reserva, reserva in enumerate(self.restaurante.reservas.values()):
             self.jgdReservas.setItem(numero_reserva, 0, QtWidgets.QTableWidgetItem(reserva.numero_reserva))
             self.jgdReservas.setItem(numero_reserva, 1, QtWidgets.QTableWidgetItem(reserva.fecha))

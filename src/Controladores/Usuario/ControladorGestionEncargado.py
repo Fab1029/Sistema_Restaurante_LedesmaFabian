@@ -32,16 +32,16 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
     def eliminar_encargado_action(self):
         if self.txtCedulaEliminar.text() and self.gestion_usuarios.encargados.get(self.txtCedulaEliminar.text(), None) is not None:
             self.gestion_usuarios.encargados.pop(self.txtCedulaEliminar.text())
-            self.dialogo_informacion('Exito', 'Eliminacion exitosa')
+            self.dialogo_informacion('Éxito', 'Eliminación exitosa')
             self.init_seccion(2)()
             self.verificar_pestana()
         else:
-            self.dialogo_informacion('Alerta', 'No se realizo la eliminacion')
+            self.dialogo_informacion('Alerta', 'No se realizó la eliminación')
 
     def ingresar_encargado_action(self):
         if self.txtCedulaIngresar.text() and self.txtNombreApellidoIngresar.text() and self.txtDireccionIngresar.text() and self.txtClaveIngresar.text() and self.validar_cedula_ecuatoriana(list(map(int, self.txtCedulaIngresar.text()))):
             self.gestion_usuarios.encargados[self.txtCedulaIngresar.text()] = Encargado(self.txtCedulaIngresar.text(), self.txtNombreApellidoIngresar.text(), self.txtDireccionIngresar.text(), self.txtClaveIngresar.text())
-            self.dialogo_informacion('Exito', 'Ingreso exitoso')
+            self.dialogo_informacion('Éxito', 'Ingreso exitoso')
             self.init_seccion(0)()
             self.verificar_pestana()
 
@@ -50,7 +50,7 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
     def modificar_encargado_action(self):
         if self.txtCedulaModificar.text() and self.txtNombreApellidoModificar.text() and self.txtDireccionModificar.text() and self.txtClaveModificar.text():
             self.gestion_usuarios.encargados[self.txtCedulaModificar.text()] = Encargado(self.txtCedulaModificar.text(), self.txtNombreApellidoModificar.text(), self.txtDireccionModificar.text(), self.txtClaveModificar.text())
-            self.dialogo_informacion('Exito', 'Se han guardado los cambios')
+            self.dialogo_informacion('Éxito', 'Se han guardado los cambios')
             self.init_seccion(1)()
             self.verificar_pestana()
         else:
@@ -59,7 +59,7 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
         self.jgdListaEncargados.clear()
         self.jgdListaEncargados.setColumnCount(3)
         self.jgdListaEncargados.setRowCount(len(self.gestion_usuarios.encargados.keys()))
-        self.jgdListaEncargados.setHorizontalHeaderLabels(['Cedula', 'Nombre', 'Direccion'])
+        self.jgdListaEncargados.setHorizontalHeaderLabels(['Cédula', 'Nombre', 'Dirección'])
         for numero_encargado, encargado in enumerate(self.gestion_usuarios.encargados.values()):
             self.jgdListaEncargados.setItem(numero_encargado, 0, QtWidgets.QTableWidgetItem(encargado.cedula))
             self.jgdListaEncargados.setItem(numero_encargado, 1, QtWidgets.QTableWidgetItem(encargado.nombre))
