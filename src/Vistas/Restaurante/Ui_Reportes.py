@@ -114,6 +114,11 @@ class Ui_Reportes(object):
 
         self.retranslateUi(Ui_Reportes)
         QtCore.QMetaObject.connectSlotsByName(Ui_Reportes)
+        Ui_Reportes.setTabOrder(self.cmbMesInicio, self.cmbAnoInicio)
+        Ui_Reportes.setTabOrder(self.cmbAnoInicio, self.cmbMesfin)
+        Ui_Reportes.setTabOrder(self.cmbMesfin, self.cmbAnoFin)
+        Ui_Reportes.setTabOrder(self.cmbAnoFin, self.btnObtenerReporte)
+        Ui_Reportes.setTabOrder(self.btnObtenerReporte, self.jgdReportes)
 
     def retranslateUi(self, Ui_Reportes):
         _translate = QtCore.QCoreApplication.translate

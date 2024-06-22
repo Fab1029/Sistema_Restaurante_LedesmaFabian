@@ -155,8 +155,8 @@ class Ui_Ingrediente(object):
         self.tbIngrediente.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbIngrediente, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(parent=Ui_Ingrediente)
-        self.label.setMinimumSize(QtCore.QSize(400, 700))
-        self.label.setMaximumSize(QtCore.QSize(400, 700))
+        self.label.setMinimumSize(QtCore.QSize(500, 700))
+        self.label.setMaximumSize(QtCore.QSize(500, 700))
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap("./Vistas/logoRestaurante.jpg"))
         self.label.setScaledContents(True)
@@ -164,8 +164,19 @@ class Ui_Ingrediente(object):
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
 
         self.retranslateUi(Ui_Ingrediente)
-        self.tbIngrediente.setCurrentIndex(3)
+        self.tbIngrediente.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Ui_Ingrediente)
+        Ui_Ingrediente.setTabOrder(self.tbIngrediente, self.txtNombreIngresar)
+        Ui_Ingrediente.setTabOrder(self.txtNombreIngresar, self.cmbTipoIngresar)
+        Ui_Ingrediente.setTabOrder(self.cmbTipoIngresar, self.cmbMedidaIngresar)
+        Ui_Ingrediente.setTabOrder(self.cmbMedidaIngresar, self.btnIngresarIngrediente)
+        Ui_Ingrediente.setTabOrder(self.btnIngresarIngrediente, self.cmbNombreModificar)
+        Ui_Ingrediente.setTabOrder(self.cmbNombreModificar, self.cmbTipoModificar)
+        Ui_Ingrediente.setTabOrder(self.cmbTipoModificar, self.cmbMedidaModificar)
+        Ui_Ingrediente.setTabOrder(self.cmbMedidaModificar, self.btnGuardarCambios)
+        Ui_Ingrediente.setTabOrder(self.btnGuardarCambios, self.cmbNombreEliminar)
+        Ui_Ingrediente.setTabOrder(self.cmbNombreEliminar, self.btnElimarIngrediente)
+        Ui_Ingrediente.setTabOrder(self.btnElimarIngrediente, self.jgdIngredientes)
 
     def retranslateUi(self, Ui_Ingrediente):
         _translate = QtCore.QCoreApplication.translate

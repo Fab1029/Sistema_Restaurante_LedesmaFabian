@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QApplication
 from src.Vistas.Restaurante.Ui_Main import Ui_Main
 from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Modelos.Usuario.GestionUsuarios import GestionUsuarios
@@ -11,11 +12,17 @@ from src.Controladores.Comida.ControladorIngrediente import ControladorIngredien
 from src.Controladores.Usuario.ControladorGestionEncargado import ControladorGestionEncargado
 from src.Controladores.Restaurante.ControladorDiaDisponibilidad import ControladorDiaDisponibilidad
 from src.Controladores.Restaurante.ControladorInformacionRestaurante import ControladorInformacionRestaurante
+
+
+
 class ControladorRestaurante(QtWidgets.QMainWindow, Ui_Main):
 
     def __init__(self, isAdmin, parent= None):
         super(ControladorRestaurante, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.init_ventana(isAdmin)
         self.init_actions()

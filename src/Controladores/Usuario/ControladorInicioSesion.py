@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QApplication
 from src.Vistas.Usuario.Ui_InicioSesion import Ui_InicioSesion
 from src.Modelos.Usuario.GestionUsuarios import GestionUsuarios
 
@@ -7,6 +8,9 @@ class ControladorInicioSesion(QtWidgets.QWidget, Ui_InicioSesion):
     def __init__(self, controlador_restaurante, parent= None):
         super(ControladorInicioSesion, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.init_componentes()
 

@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator
 from src.Modelos.Restaurante.Restaurante import Restaurante
@@ -7,6 +8,9 @@ class ControladorInformacionRestaurante(QtWidgets.QWidget, Ui_InformacionRestaur
     def __init__(self, controlador_anterior, parent = None):
         super(ControladorInformacionRestaurante, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.restaurante = Restaurante.getInstance()
         self.init_seccion()

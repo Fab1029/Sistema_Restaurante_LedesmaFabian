@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtCore import QDate
+from PyQt6.QtWidgets import QApplication
 from src.Modelos.Restaurante.Carta import Carta
 from src.Vistas.Restaurante.Ui_Carta import Ui_Carta
 from src.Modelos.Restaurante.Restaurante import Restaurante
@@ -7,6 +8,9 @@ class ControladorCarta(QtWidgets.QWidget, Ui_Carta):
     def __init__(self, controlador_anterior, seccion, parent= None):
         super(ControladorCarta, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.productos = []
         self.restaurante = Restaurante.getInstance()

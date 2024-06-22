@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets
-from functools import reduce
 from PyQt6.QtCore import QDate
+from PyQt6.QtWidgets import QApplication
 from src.Modelos.Restaurante.Restaurante import Restaurante
 from src.Vistas.Restaurante.Ui_Disponibilidad import Ui_Disponibilidad
 from src.Modelos.Restaurante.DiaDisponibilidad import DiaDisponibilidad
@@ -9,6 +9,9 @@ class ControladorDiaDisponibilidad(QtWidgets.QWidget, Ui_Disponibilidad):
     def __init__(self, controlador_anterior, seccion, parent= None):
         super(ControladorDiaDisponibilidad, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.restaurante = Restaurante.getInstance()
         self.controlador_anterior = controlador_anterior

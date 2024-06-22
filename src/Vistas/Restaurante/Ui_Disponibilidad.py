@@ -248,8 +248,8 @@ class Ui_Disponibilidad(object):
         self.tbDisponibilidad.addTab(self.tbListar, "")
         self.gridLayout.addWidget(self.tbDisponibilidad, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(parent=Ui_Disponibilidad)
-        self.label.setMinimumSize(QtCore.QSize(400, 700))
-        self.label.setMaximumSize(QtCore.QSize(400, 700))
+        self.label.setMinimumSize(QtCore.QSize(500, 700))
+        self.label.setMaximumSize(QtCore.QSize(500, 700))
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap("./Vistas/logoRestaurante.jpg"))
         self.label.setScaledContents(True)
@@ -257,8 +257,21 @@ class Ui_Disponibilidad(object):
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
 
         self.retranslateUi(Ui_Disponibilidad)
-        self.tbDisponibilidad.setCurrentIndex(0)
+        self.tbDisponibilidad.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Ui_Disponibilidad)
+        Ui_Disponibilidad.setTabOrder(self.tbDisponibilidad, self.dtpFechaIngresar)
+        Ui_Disponibilidad.setTabOrder(self.dtpFechaIngresar, self.cmbTurnoIngresar)
+        Ui_Disponibilidad.setTabOrder(self.cmbTurnoIngresar, self.sbNumeroPlazas)
+        Ui_Disponibilidad.setTabOrder(self.sbNumeroPlazas, self.btnIngresarDisponibilidad)
+        Ui_Disponibilidad.setTabOrder(self.btnIngresarDisponibilidad, self.dtpFechaModificar)
+        Ui_Disponibilidad.setTabOrder(self.dtpFechaModificar, self.cmbTurnoModificar)
+        Ui_Disponibilidad.setTabOrder(self.cmbTurnoModificar, self.sbNumeroPlazasModificar)
+        Ui_Disponibilidad.setTabOrder(self.sbNumeroPlazasModificar, self.btnGuardarCambios)
+        Ui_Disponibilidad.setTabOrder(self.btnGuardarCambios, self.dtpFechaEliminar)
+        Ui_Disponibilidad.setTabOrder(self.dtpFechaEliminar, self.cmbTurnoEliminar)
+        Ui_Disponibilidad.setTabOrder(self.cmbTurnoEliminar, self.txtNumeroPlazasEliminar)
+        Ui_Disponibilidad.setTabOrder(self.txtNumeroPlazasEliminar, self.btnEliminar)
+        Ui_Disponibilidad.setTabOrder(self.btnEliminar, self.jgdDisponibilidad)
 
     def retranslateUi(self, Ui_Disponibilidad):
         _translate = QtCore.QCoreApplication.translate

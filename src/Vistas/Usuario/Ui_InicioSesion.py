@@ -102,6 +102,9 @@ class Ui_InicioSesion(object):
 
         self.retranslateUi(Ui_InicioSesion)
         QtCore.QMetaObject.connectSlotsByName(Ui_InicioSesion)
+        Ui_InicioSesion.setTabOrder(self.txtUsuario, self.txtClave)
+        Ui_InicioSesion.setTabOrder(self.txtClave, self.cbxMostrarClave)
+        Ui_InicioSesion.setTabOrder(self.cbxMostrarClave, self.btnEntrar)
 
     def retranslateUi(self, Ui_InicioSesion):
         _translate = QtCore.QCoreApplication.translate

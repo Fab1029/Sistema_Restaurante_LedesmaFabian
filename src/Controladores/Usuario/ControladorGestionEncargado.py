@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator
 from src.Modelos.Usuario.Encargado import Encargado
@@ -8,6 +9,9 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
     def __init__(self, controlador_anterior, seccion, parent= None):
         super(ControladorGestionEncargado, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.controlador_anterior = controlador_anterior
         self.gestion_usuarios = GestionUsuarios.getInstance()

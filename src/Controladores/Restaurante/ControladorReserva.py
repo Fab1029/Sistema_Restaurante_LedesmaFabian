@@ -2,6 +2,7 @@ import random
 import string
 from PyQt6 import QtWidgets
 from PyQt6.QtCore import QDate
+from PyQt6.QtWidgets import QApplication
 from src.Modelos.Restaurante.Reserva import Reserva
 from src.Vistas.Restaurante.Ui_Reserva import Ui_Reserva
 from src.Modelos.Restaurante.Restaurante import Restaurante
@@ -9,6 +10,9 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
     def __init__(self, controlador_anterior, seccion, parent = None):
         super(ControladorReserva, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.pedido = dict()
         self.restaurante = Restaurante.getInstance()

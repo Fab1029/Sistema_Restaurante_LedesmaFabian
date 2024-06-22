@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QApplication
 from src.Modelos.Comida.Producto import Producto
 from src.Vistas.Comida.Ui_Producto import Ui_Producto
 from src.Modelos.Restaurante.Restaurante import Restaurante
@@ -7,6 +8,9 @@ class ControladorProducto(QtWidgets.QWidget, Ui_Producto):
     def __init__(self, controlador_anterior, seccion, parent= None):
         super(ControladorProducto, self).__init__(parent)
         self.setupUi(self)
+
+        #Centrar pantalla
+        self.move(QApplication.primaryScreen().availableGeometry().center() - self.rect().center())
 
         self.ingredientes = []
         self.resturante = Restaurante.getInstance()
