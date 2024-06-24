@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_AcercaDe(object):
     def setupUi(self, Ui_AcercaDe):
         Ui_AcercaDe.setObjectName("Ui_AcercaDe")
-        Ui_AcercaDe.resize(1366, 768)
+        Ui_AcercaDe.resize(1280, 600)
         Ui_AcercaDe.setMinimumSize(QtCore.QSize(800, 600))
         Ui_AcercaDe.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_AcercaDe.setStyleSheet("QWidget{\n"

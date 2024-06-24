@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_InicioSesion(object):
     def setupUi(self, Ui_InicioSesion):
         Ui_InicioSesion.setObjectName("Ui_InicioSesion")
-        Ui_InicioSesion.resize(1015, 522)
+        Ui_InicioSesion.resize(1280, 600)
         Ui_InicioSesion.setStyleSheet("QWidget{\n"
 "background-color:white;\n"
 "}\n"

@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_InformacionRestaurante(object):
     def setupUi(self, Ui_InformacionRestaurante):
         Ui_InformacionRestaurante.setObjectName("Ui_InformacionRestaurante")
-        Ui_InformacionRestaurante.resize(1366, 768)
+        Ui_InformacionRestaurante.resize(1280, 600)
         Ui_InformacionRestaurante.setMinimumSize(QtCore.QSize(800, 600))
         Ui_InformacionRestaurante.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_InformacionRestaurante.setStyleSheet("QWidget{\n"

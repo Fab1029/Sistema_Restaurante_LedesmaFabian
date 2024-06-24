@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Carta(object):
     def setupUi(self, Ui_Carta):
         Ui_Carta.setObjectName("Ui_Carta")
-        Ui_Carta.resize(1366, 768)
+        Ui_Carta.resize(1280, 600)
         Ui_Carta.setMinimumSize(QtCore.QSize(800, 600))
         Ui_Carta.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Carta.setStyleSheet("QWidget{\n"

@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_GestionEncargado(object):
     def setupUi(self, Ui_GestionEncargado):
         Ui_GestionEncargado.setObjectName("Ui_GestionEncargado")
-        Ui_GestionEncargado.resize(1366, 768)
+        Ui_GestionEncargado.resize(1280, 600)
         Ui_GestionEncargado.setMinimumSize(QtCore.QSize(800, 600))
         Ui_GestionEncargado.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_GestionEncargado.setStyleSheet("QWidget{\n"

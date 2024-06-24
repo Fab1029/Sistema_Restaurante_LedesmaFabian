@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Reportes(object):
     def setupUi(self, Ui_Reportes):
         Ui_Reportes.setObjectName("Ui_Reportes")
-        Ui_Reportes.resize(1366, 768)
+        Ui_Reportes.resize(1280, 600)
         Ui_Reportes.setMinimumSize(QtCore.QSize(800, 600))
         Ui_Reportes.setMaximumSize(QtCore.QSize(1366, 768))
         Ui_Reportes.setStyleSheet("QWidget{\n"
