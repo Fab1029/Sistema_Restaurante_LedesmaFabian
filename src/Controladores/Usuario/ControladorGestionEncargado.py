@@ -152,7 +152,7 @@ class ControladorGestionEncargado(QtWidgets.QWidget, Ui_GestionEncargado):
         try:
             self.cbxMostrarClaveIngresar.disconnect()
             self.cbxMostrarClaveModificar.disconnect()
-            self.txtCedulaIngresar.textEdited.disconnect()
+            self.txtCedulaEliminar.textEdited.disconnect()
             self.txtCedulaModificar.textEdited.disconnect()
         except:
             pass

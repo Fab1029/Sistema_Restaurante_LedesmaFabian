@@ -136,8 +136,9 @@ class ControladorReserva(QtWidgets.QWidget, Ui_Reserva):
             self.sbCantidadPedidoIngresar.setValue(0)
             self.sbNumeroComensalesIngresar.setValue(0)
             self.sbCantidadProductoIngresar.setValue(0)
-            self.cmbTurnoIngresar.addItems(list(filter(lambda disponibilidad: self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][disponibilidad].turno if self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][disponibilidad].numero_plazas > 0 else None, self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')].keys()))
+            self.cmbTurnoIngresar.addItems(list(filter(lambda disponibilidad: self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][disponibilidad].turno if self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')][disponibilidad].numero_plazas > 0 else None, self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')].keys()) )
                                            if self.restaurante.dias_disponibilidad.get(self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd'), None) is not None and self.restaurante.dias_disponibilidad[self.dtpFechaIngresar.selectedDate().toString('yyyy-MM-dd')] else [])
+
             self.cmbAgregarProductosIngresar.addItems(list(self.obtener_carta_actual().productos) if self.obtener_carta_actual() is not None else [])
             self.cmbPedidoIngresar.blockSignals(False)
             self.cmbAgregarProductosIngresar.blockSignals(False)

@@ -80,7 +80,7 @@ class ControladorProducto(QtWidgets.QWidget, Ui_Producto):
     def modificar_producto_action(self):
         if self.txtDescripcionModificar.text() and self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes:
             self.resturante.productos.update({self.cmbNombreModificar.currentText(): Producto(self.cmbNombreModificar.currentText(), self.txtDescripcionModificar.text(), self.dsbPrecioModificar.value(), self.resturante.productos[self.cmbNombreModificar.currentText()].ingredientes)})
-            self.init_seccion(3)
+            self.init_seccion(3)()
             self.dialogo_informacion('Éxito', 'Cambios aplicados exitosamente')
         else:
             self.dialogo_informacion('Alerta', 'Ingrese todos los campos')
